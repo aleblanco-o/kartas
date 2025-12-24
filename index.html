@@ -5,34 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Flexoki Sport Coach</title>
     <style>
-        /* --- 1. FLEXOKI CONFIGURATION & BASE --- */
+        /* --- 1. FLEXOKI PALETTE & VARIABLES --- */
         :root {
-            /* Base Colours */
-            --flexoki-bg: #FFFCF0;
-            --flexoki-ui: #F2F0E5;
-            --flexoki-ui-2: #CECDC3;
-            --flexoki-text: #100F0F;
-            --flexoki-text-mut: #6F6E69;
+            /* Base */
+            --bg-canvas: #FFFCF0;
+            --bg-ui: #F2F0E5;
+            --bg-ui-hover: #E6E4D9;
+            --text-main: #100F0F;
+            --text-muted: #6F6E69;
             
-            /* Accents */
-            --flexoki-red: #AF3029;   /* Heavy */
-            --flexoki-orange: #BC5215; /* Medium */
-            --flexoki-green: #66800B;  /* Light */
-            --flexoki-blue: #205EA6;
-            --flexoki-purple: #5E409D;
-            --flexoki-cyan: #24837B;
+            /* Accents (Colors) */
+            --red: #AF3029;
+            --red-bg: #FBEBEB; /* Light Tint for buttons */
             
-            /* UI Elements */
-            --card-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --border-radius: 16px;
+            --orange: #BC5215;
+            --orange-bg: #FDF1E8;
+            
+            --green: #66800B;
+            --green-bg: #F2F5E6;
+            
+            --blue: #205EA6;
+            --blue-bg: #E9F0F8;
+            
+            --purple: #5E409D;
+            --purple-bg: #F1EDF7;
+            
+            --cyan: #24837B;
+            
+            /* Shadows & Radius */
+            --shadow-card: 0 4px 12px -2px rgba(16, 15, 15, 0.08);
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
         }
 
         body {
-            background-color: var(--flexoki-bg);
-            color: var(--flexoki-text);
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px 15px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -41,84 +53,138 @@
         }
 
         *, *::before, *::after { box-sizing: inherit; }
-        h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.5px;}
+        h1, h2, h3 { margin: 0; font-weight: 800; letter-spacing: -0.03em;}
 
         /* --- UI COMPONENTS --- */
         
-        /* Container Logic */
+        /* Views */
         .app-view {
             width: 100%;
-            max-width: 600px;
-            text-align: center;
-            display: none; /* Hidden by default */
-            animation: fadeIn 0.3s ease-out;
+            max-width: 650px;
+            display: none;
+            flex-direction: column;
+            animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
+        .app-view.active { display: flex; }
         
-        .app-view.active { display: block; }
-
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Intro Text */
+        .intro-box {
+            background-color: white;
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--bg-ui);
+            margin-bottom: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .intro-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
         .header-title {
-            margin-bottom: 10px;
-            font-size: 2.2rem;
-            color: var(--flexoki-text);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--text-main);
+            text-align: center;
         }
         
-        .header-subtitle {
-            margin-bottom: 35px;
-            color: var(--flexoki-text-mut);
-            font-size: 1.1rem;
+        .section-label {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: block;
         }
 
         /* BUTTON GRIDS */
         .btn-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 16px;
         }
         
-        @media (min-width: 480px) {
-            .btn-grid { grid-template-columns: 1fr 1fr; }
-            .btn-grid .big-btn:last-child:nth-child(odd) { grid-column: span 2; }
+        @media (min-width: 500px) {
+            .btn-grid { grid-template-columns: repeat(2, 1fr); }
+            /* Voley full width on desktop if desired, or keep grid */
+            .btn-grid .sport-main { grid-column: span 2; }
         }
 
+        /* MAIN BUTTON STYLES */
         .big-btn {
-            background-color: var(--flexoki-ui);
-            border: 2px solid var(--flexoki-ui-2);
-            border-radius: var(--border-radius);
-            padding: 25px 20px;
-            font-size: 1.2rem;
-            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-lg);
+            padding: 24px 20px;
+            font-size: 1.25rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
-            color: var(--flexoki-text);
-            min-height: 90px;
+            color: var(--text-main);
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 5px;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.05);
         }
 
-        .big-btn:active { transform: scale(0.98); background-color: var(--flexoki-ui-2); }
-        .big-btn span { font-size: 0.9rem; font-weight: 400; color: var(--flexoki-text-mut); }
+        .big-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.08); }
+        .big-btn:active { transform: scale(0.98); }
 
-        /* Custom Colors for Sports */
-        .btn-sport[data-sport="Volleyball"] { border-left: 6px solid var(--flexoki-purple); }
-        .btn-sport[data-sport="Running"] { border-left: 6px solid var(--flexoki-orange); }
-        .btn-sport[data-sport="Swimming"] { border-left: 6px solid var(--flexoki-cyan); }
+        /* Sport Specific Colors */
+        .btn-sport[data-sport="Volleyball"] {
+            background-color: var(--purple-bg);
+            color: var(--purple);
+            border: 2px solid rgba(94, 64, 157, 0.1);
+        }
+        .btn-sport[data-sport="Volleyball"]:hover { border-color: var(--purple); }
 
-        /* Goals Buttons Styling */
-        .btn-goal { border-bottom: 4px solid var(--flexoki-text-mut); }
-        .btn-goal:hover { transform: translateY(-3px); }
+        /* DISABLED STATE */
+        .btn-sport.disabled {
+            background-color: var(--bg-ui);
+            color: var(--text-muted);
+            border: 2px solid transparent;
+            cursor: not-allowed;
+            opacity: 0.6;
+            pointer-events: none; /* Disables clicking */
+        }
+        
+        .badge-soon {
+            font-size: 0.7rem;
+            background-color: var(--text-muted);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* GOAL BUTTONS */
+        .btn-goal {
+            background-color: white;
+            border: 2px solid var(--bg-ui);
+            justify-content: center;
+            text-align: center;
+        }
+        
+        /* Dynamic Goal Colors based on JS injection */
+        .btn-goal.purple-theme { background-color: var(--purple-bg); color: var(--purple); border-color: transparent; }
+        .btn-goal.purple-theme:hover { border-color: var(--purple); }
 
 
-        /* --- WORKOUT VIEW (CARDS) --- */
+        /* --- WORKOUT VIEW --- */
         #workout-container {
-            max-width: 1100px;
+            max-width: 1200px;
             display: none;
             flex-direction: column;
             width: 100%;
@@ -129,59 +195,62 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             padding: 0 5px;
         }
 
         .back-btn {
-            background: none;
-            border: none;
-            color: var(--flexoki-text-mut);
-            font-size: 0.95rem;
+            background: white;
+            border: 1px solid var(--bg-ui-hover);
+            color: var(--text-main);
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            padding: 10px 0;
+            padding: 8px 16px;
+            border-radius: 50px;
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: background 0.2s;
         }
+        .back-btn:hover { background-color: var(--bg-ui); }
 
-        /* SLIDER */
+        /* CARDS SLIDER */
         .cards-slider {
             display: flex;
             overflow-x: auto;
-            gap: 20px;
+            gap: 24px;
             padding: 10px 5px 40px 5px;
             scroll-snap-type: x mandatory; 
             scrollbar-width: none;
         }
         .cards-slider::-webkit-scrollbar { display: none; }
 
-        /* CARD */
+        /* EXERCISE CARD */
         .card {
             flex: 0 0 88vw; 
             max-width: 380px;
             background-color: white;
-            border-radius: var(--border-radius);
+            border-radius: var(--radius-lg);
             overflow: hidden;
             scroll-snap-align: center;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--flexoki-ui-2);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
             position: relative;
-            min-height: 520px;
+            min-height: 580px; /* Taller for better proportion */
         }
 
         .card-image {
-            height: 200px;
-            background-color: var(--flexoki-ui);
-            overflow: hidden;
+            height: 220px;
+            background-color: var(--bg-ui);
+            position: relative;
         }
-        .card-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.95; }
+        .card-image img { width: 100%; height: 100%; object-fit: cover; }
 
         .card-content {
-            padding: 25px;
+            padding: 28px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -190,39 +259,39 @@
         .card-header-group {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+            align-items: start;
+            margin-bottom: 12px;
         }
 
         .card-tag {
             text-transform: uppercase;
             font-size: 0.7rem;
             font-weight: 800;
-            letter-spacing: 1.2px;
-            padding: 6px 12px;
-            border-radius: 50px;
-            color: white;
+            letter-spacing: 1px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            color: var(--text-main);
         }
 
         .card-reps {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--flexoki-text-mut);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background-color: var(--bg-ui);
+            padding: 6px 10px;
+            border-radius: 6px;
         }
 
-        .card-title { font-size: 1.5rem; margin-bottom: 10px; line-height: 1.2; }
-        .card-desc { font-size: 1rem; line-height: 1.6; color: var(--flexoki-text-mut); margin-bottom: 25px; }
+        .card-title { font-size: 1.6rem; margin-bottom: 12px; line-height: 1.1; letter-spacing: -0.5px; }
+        .card-desc { font-size: 1.05rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 30px; }
 
-        /* VIDEO BUTTON */
+        /* BUTTON VIDEO */
         .btn-video {
             text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: var(--radius-md);
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-align: center;
             background-color: transparent;
             border: 2px solid currentColor;
@@ -231,27 +300,34 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
         }
-        .btn-video:hover { opacity: 0.6; }
-        .btn-video svg { width: 18px; height: 18px; }
+        .btn-video:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.1); transform: translateY(-1px); }
+        .btn-video svg { width: 20px; height: 20px; }
 
-        /* Category Accents */
-        .heavy { border-top: 8px solid var(--flexoki-red); }
-        .heavy .card-tag { background-color: var(--flexoki-red); }
-        .heavy .btn-video { color: var(--flexoki-red); }
+        /* --- CATEGORY THEMING --- */
+        
+        /* HEAVY (RED) */
+        .heavy { border-top: 6px solid var(--red); }
+        .heavy .card-tag { background-color: var(--red-bg); color: var(--red); }
+        .heavy .btn-video { color: var(--red); border-color: var(--red-bg); background-color: var(--red-bg); }
+        .heavy .btn-video:hover { border-color: var(--red); }
 
-        .medium { border-top: 8px solid var(--flexoki-orange); }
-        .medium .card-tag { background-color: var(--flexoki-orange); }
-        .medium .btn-video { color: var(--flexoki-orange); }
+        /* MEDIUM (ORANGE) */
+        .medium { border-top: 6px solid var(--orange); }
+        .medium .card-tag { background-color: var(--orange-bg); color: var(--orange); }
+        .medium .btn-video { color: var(--orange); border-color: var(--orange-bg); background-color: var(--orange-bg); }
+        .medium .btn-video:hover { border-color: var(--orange); }
 
-        .light { border-top: 8px solid var(--flexoki-green); }
-        .light .card-tag { background-color: var(--flexoki-green); }
-        .light .btn-video { color: var(--flexoki-green); }
+        /* LIGHT (GREEN) */
+        .light { border-top: 6px solid var(--green); }
+        .light .card-tag { background-color: var(--green-bg); color: var(--green); }
+        .light .btn-video { color: var(--green); border-color: var(--green-bg); background-color: var(--green-bg); }
+        .light .btn-video:hover { border-color: var(--green); }
 
-        /* Desktop tweak */
+
         @media (min-width: 900px) {
-            .card { flex: 0 0 350px; }
+            .card { flex: 0 0 360px; }
             .cards-slider { justify-content: center; }
         }
     </style>
@@ -259,35 +335,49 @@
 <body>
 
     <div id="sport-menu" class="app-view active">
-        <h1 class="header-title">Pick Your Sport</h1>
-        <p class="header-subtitle">Select your main discipline</p>
+        <h1 class="header-title">Flexoki Coach</h1>
+
+        <div class="intro-box">
+            <p class="intro-text">
+                This is a personal compendium of exercises that have proven effective in my own training. I will be updating this library as I gather more data and time. Designed to supplement your existing programming, this tool generates a balanced 3-card combination (Heavy, Medium, Light) tailored to your specific focus.
+            </p>
+        </div>
+        
+        <span class="section-label">Pick your sport</span>
+        
         <div class="btn-grid">
-            <button class="big-btn btn-sport" onclick="selectSport('Volleyball')" data-sport="Volleyball">
-                Volleyball <span>Court & Sand</span>
+            <button class="big-btn btn-sport sport-main" onclick="selectSport('Volleyball')" data-sport="Volleyball">
+                Volleyball
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
-            <button class="big-btn btn-sport" onclick="selectSport('Running')" data-sport="Running">
-                Running <span>Track & Trail</span>
+            
+            <button class="big-btn btn-sport disabled">
+                Running
+                <span class="badge-soon">Coming Soon</span>
             </button>
-            <button class="big-btn btn-sport" onclick="selectSport('Swimming')" data-sport="Swimming">
-                Swimming <span>Pool & Open Water</span>
+            <button class="big-btn btn-sport disabled">
+                Swimming
+                <span class="badge-soon">Coming Soon</span>
             </button>
         </div>
     </div>
 
     <div id="goal-menu" class="app-view">
         <div class="top-bar">
-            <button class="back-btn" onclick="showSportMenu()">← Back to Sports</button>
+            <button class="back-btn" onclick="showSportMenu()">← Sports</button>
         </div>
+        
         <h1 class="header-title" id="goal-menu-title">...</h1>
-        <p class="header-subtitle">Focus for today's session</p>
+        <span class="section-label" style="text-align:center">Select today's focus</span>
+        
         <div class="btn-grid" id="goal-grid">
             </div>
     </div>
 
     <div id="workout-container">
         <div class="top-bar">
-            <button class="back-btn" onclick="showGoalMenu()">← Change Goal</button>
-            <h2 id="workout-header-label">Routine</h2>
+            <button class="back-btn" onclick="showGoalMenu()">← Change Focus</button>
+            <h2 id="workout-header-label" style="font-size:1.2rem;">Routine</h2>
         </div>
         
         <div class="cards-slider" id="cards-wrapper">
@@ -300,45 +390,37 @@
 
         const sportGoals = {
             "Volleyball": ["Knee Rehab", "Jump", "Spike", "Mobility"],
-            "Running": ["Beginning", "Core", "Stability", "Mobility"],
-            "Swimming": ["Technical", "Core", "Long Distance"]
+            "Running": ["Beginning", "Core", "Stability", "Mobility"], // Placeholder logic
+            "Swimming": ["Technical", "Core", "Long Distance"] // Placeholder logic
         };
 
-        // --- 2. EXTENSIVE EXERCISE DATABASE ---
-        // Sports: ['Volleyball', 'Running', 'Swimming'] or specific subsets.
-        // Categories: Heavy, Medium, Light
+        // --- 2. DATABASE (NO WILDCARDS - ALL VOLEY CATEGORIES COVERED) ---
+        // Ensure every Volley Goal has at least 1 Heavy, 1 Medium, 1 Light.
         
         const exercisesDB = [
-            // === VOLLEYBALL SPECIFIC ===
-            { id: 101, name: "Heavy Box Squat", type: "Heavy", sports: ["Volleyball", "Running"], motifs: ["Jump", "Stability", "Beginning"], desc: "Sit back onto box, pause, explode up. Builds raw power.", img: "https://placehold.co/600x400/AF3029/white?text=Box+Squat", vid: "#" },
-            { id: 102, name: "Depth Jumps", type: "Heavy", sports: ["Volleyball"], motifs: ["Jump", "Spike"], desc: "Step off box, land, immediately jump vertically. Minimize ground contact time.", img: "https://placehold.co/600x400/AF3029/white?text=Depth+Jump", vid: "#" },
-            { id: 103, name: "Medicine Ball Slam", type: "Medium", sports: ["Volleyball"], motifs: ["Spike", "Core"], desc: "Slam ball down violently using core and lats. Simulates hitting power.", img: "https://placehold.co/600x400/BC5215/white?text=Ball+Slam", vid: "#" },
-            { id: 104, name: "Spanish Squat (Iso)", type: "Light", sports: ["Volleyball", "Running"], motifs: ["Knee Rehab", "Beginning"], desc: "Band behind knees attached to pole. Sit back and hold. 45 seconds.", img: "https://placehold.co/600x400/66800B/white?text=Spanish+Squat", vid: "#" },
-            { id: 105, name: "Arm Swing Mechanics", type: "Light", sports: ["Volleyball"], motifs: ["Spike", "Mobility"], desc: "Slow motion hitting approach facing wall. Focus on high elbow and torque.", img: "https://placehold.co/600x400/66800B/white?text=Arm+Swing", vid: "#" },
+            // --- HEAVY (Force) ---
+            { id: 1, name: "Back Squat", type: "Heavy", sports: ["Volleyball"], motifs: ["Jump", "Knee Rehab", "Spike"], desc: "Deep squat with controlled tempo. Focus on glute and quad drive.", img: "https://placehold.co/600x400/AF3029/white?text=Back+Squat", vid: "#" },
+            { id: 2, name: "Trap Bar Deadlift", type: "Heavy", sports: ["Volleyball"], motifs: ["Jump", "Mobility"], desc: "Hinge pattern. Keep chest tall and drive through heels.", img: "https://placehold.co/600x400/AF3029/white?text=Trap+Bar", vid: "#" },
+            { id: 3, name: "Split Squat (Weighted)", type: "Heavy", sports: ["Volleyball"], motifs: ["Knee Rehab", "Spike"], desc: "Vertical torso. Lower knee close to ground without touching.", img: "https://placehold.co/600x400/AF3029/white?text=Split+Squat", vid: "#" },
+            { id: 4, name: "Weighted Pull-Up", type: "Heavy", sports: ["Volleyball"], motifs: ["Spike", "Mobility"], desc: "Full range of motion. Explosive pull, slow eccentric.", img: "https://placehold.co/600x400/AF3029/white?text=Pull+Up", vid: "#" },
+            { id: 5, name: "RDL", type: "Heavy", sports: ["Volleyball"], motifs: ["Knee Rehab", "Mobility", "Jump"], desc: "Hamstring focus. Hinge at hips with slight knee bend.", img: "https://placehold.co/600x400/AF3029/white?text=RDL", vid: "#" },
 
-            // === RUNNING SPECIFIC ===
-            { id: 201, name: "Single Leg Deadlift", type: "Heavy", sports: ["Running", "Volleyball"], motifs: ["Stability", "Knee Rehab", "Core"], desc: "Heavy dumbbell in opposite hand. Hinge hip while keeping balance.", img: "https://placehold.co/600x400/AF3029/white?text=SL+RDL", vid: "#" },
-            { id: 202, name: "Weighted Step Ups", type: "Heavy", sports: ["Running"], motifs: ["Beginning", "Stability"], desc: "Drive through the heel of the elevated foot. Do not push off bottom foot.", img: "https://placehold.co/600x400/AF3029/white?text=Step+Ups", vid: "#" },
-            { id: 203, name: "Single Leg Glute Bridge", type: "Medium", sports: ["Running", "Volleyball", "Swimming"], motifs: ["Stability", "Beginning", "Core"], desc: "Lie on back, one leg up. Drive hips using glute only.", img: "https://placehold.co/600x400/BC5215/white?text=SL+Bridge", vid: "#" },
-            { id: 204, name: "A-Skips", type: "Light", sports: ["Running"], motifs: ["Beginning", "Mobility"], desc: "Rhythmic skipping with high knee drive and strong arm swing.", img: "https://placehold.co/600x400/66800B/white?text=A-Skips", vid: "#" },
-            { id: 205, name: "Tibialis Raises", type: "Light", sports: ["Running", "Volleyball"], motifs: ["Knee Rehab", "Stability"], desc: "Lean butt against wall, lift toes up hard. Prevents shin splints.", img: "https://placehold.co/600x400/66800B/white?text=Tib+Raise", vid: "#" },
+            // --- MEDIUM (Hypertrophy/Power) ---
+            { id: 6, name: "Box Jumps", type: "Medium", sports: ["Volleyball"], motifs: ["Jump", "Spike"], desc: "Soft landing. Focus on triple extension mechanics.", img: "https://placehold.co/600x400/BC5215/white?text=Box+Jump", vid: "#" },
+            { id: 7, name: "Medicine Ball Slam", type: "Medium", sports: ["Volleyball"], motifs: ["Spike", "Core"], desc: "Violent slam downward. Engage lats and core.", img: "https://placehold.co/600x400/BC5215/white?text=Ball+Slam", vid: "#" },
+            { id: 8, name: "Walking Lunges", type: "Medium", sports: ["Volleyball"], motifs: ["Knee Rehab", "Mobility"], desc: "Continuous movement. Keep alignment of front knee.", img: "https://placehold.co/600x400/BC5215/white?text=Lunges", vid: "#" },
+            { id: 9, name: "Nordic Hamstring Curl", type: "Medium", sports: ["Volleyball"], motifs: ["Knee Rehab", "Jump"], desc: "Slow eccentric fall. Use hands to push back up if needed.", img: "https://placehold.co/600x400/BC5215/white?text=Nordic+Curl", vid: "#" },
+            { id: 10, name: "T-Spine Rotation", type: "Medium", sports: ["Volleyball"], motifs: ["Mobility", "Spike"], desc: "Open book or quadruped rotation to free up thoracic spine.", img: "https://placehold.co/600x400/BC5215/white?text=T-Spine", vid: "#" },
 
-            // === SWIMMING SPECIFIC ===
-            { id: 301, name: "Weighted Pull-Up", type: "Heavy", sports: ["Swimming", "Volleyball"], motifs: ["Technical", "Spike", "Long Distance"], desc: "Strict form. Lats are the engine of swimming.", img: "https://placehold.co/600x400/AF3029/white?text=Pull+Ups", vid: "#" },
-            { id: 302, name: "Renegade Row", type: "Heavy", sports: ["Swimming"], motifs: ["Core", "Long Distance"], desc: "Pushup position with dumbbells. Row one arm while stabilizing hips.", img: "https://placehold.co/600x400/AF3029/white?text=Renegade+Row", vid: "#" },
-            { id: 303, name: "Hollow Body Rock", type: "Medium", sports: ["Swimming", "Volleyball"], motifs: ["Core", "Technical"], desc: "Lower back glued to floor. Rock slightly. Maintain streamline shape.", img: "https://placehold.co/600x400/BC5215/white?text=Hollow+Rock", vid: "#" },
-            { id: 304, name: "Band Pull Aparts", type: "Medium", sports: ["Swimming", "Volleyball"], motifs: ["Technical", "Mobility", "Spike"], desc: "Straight arms, squeeze shoulder blades together. Scapular health.", img: "https://placehold.co/600x400/BC5215/white?text=Band+Pull", vid: "#" },
-            { id: 305, name: "Streamline Wall Hold", type: "Light", sports: ["Swimming"], motifs: ["Technical", "Mobility"], desc: "Back to wall, arms in streamline. Try to touch wrists, elbows and back to wall.", img: "https://placehold.co/600x400/66800B/white?text=Streamline", vid: "#" },
-
-            // === SHARED / UTILITY ===
-            { id: 401, name: "Goblet Squat", type: "Heavy", sports: ["Running", "Volleyball"], motifs: ["Beginning", "Knee Rehab"], desc: "Hold weight at chest. Sink deep between legs. Keep chest up.", img: "https://placehold.co/600x400/AF3029/white?text=Goblet+Squat", vid: "#" },
-            { id: 402, name: "Dead Bug (Weighted)", type: "Medium", sports: ["Running", "Swimming", "Volleyball"], motifs: ["Core", "Beginning", "Long Distance"], desc: "Slow and controlled. Do not let lower back arch.", img: "https://placehold.co/600x400/BC5215/white?text=Dead+Bug", vid: "#" },
-            { id: 403, name: "Copenhagen Plank", type: "Medium", sports: ["Running", "Volleyball"], motifs: ["Knee Rehab", "Stability", "Core"], desc: "Side plank with top leg on bench. Targets adductors.", img: "https://placehold.co/600x400/BC5215/white?text=Copenhagen", vid: "#" },
-            { id: 404, name: "90/90 Hip Switch", type: "Light", sports: ["Running", "Volleyball", "Swimming"], motifs: ["Mobility", "Recovery"], desc: "Sit on floor, rotate hips from side to side keeping knees at 90 degrees.", img: "https://placehold.co/600x400/66800B/white?text=90-90+Hip", vid: "#" },
-            { id: 405, name: "T-Spine Rotation", type: "Light", sports: ["Swimming", "Volleyball"], motifs: ["Mobility", "Technical"], desc: "Open book stretch. Vital for overhead athletes.", img: "https://placehold.co/600x400/66800B/white?text=T-Spine", vid: "#" }
+            // --- LIGHT (Activation/Stability) ---
+            { id: 11, name: "Pogo Jumps", type: "Light", sports: ["Volleyball"], motifs: ["Jump", "Spike"], desc: "Ankle stiffness. Quick rebounds without heel touching ground.", img: "https://placehold.co/600x400/66800B/white?text=Pogo+Jumps", vid: "#" },
+            { id: 12, name: "Spanish Squat", type: "Light", sports: ["Volleyball"], motifs: ["Knee Rehab"], desc: "Isometric hold with heavy band behind knees. 45 seconds.", img: "https://placehold.co/600x400/66800B/white?text=Spanish+Squat", vid: "#" },
+            { id: 13, name: "Band Pull Aparts", type: "Light", sports: ["Volleyball"], motifs: ["Spike", "Mobility"], desc: "Scapular retraction. Keep elbows locked straight.", img: "https://placehold.co/600x400/66800B/white?text=Band+Pull", vid: "#" },
+            { id: 14, name: "Copenhagen Plank", type: "Light", sports: ["Volleyball"], motifs: ["Knee Rehab", "Mobility"], desc: "Adductor focus. Top leg on bench, bottom leg lifts.", img: "https://placehold.co/600x400/66800B/white?text=Copenhagen", vid: "#" },
+            { id: 15, name: "90/90 Hip Switch", type: "Light", sports: ["Volleyball"], motifs: ["Mobility", "Knee Rehab"], desc: "Internal and external hip rotation flow on floor.", img: "https://placehold.co/600x400/66800B/white?text=90-90+Hip", vid: "#" }
         ];
 
-        // --- 3. NAVIGATION & LOGIC ---
+        // --- 3. LOGIC ---
 
         function showSportMenu() {
             hideAll();
@@ -365,14 +447,14 @@
             const title = document.getElementById('goal-menu-title');
             const grid = document.getElementById('goal-grid');
             
-            title.innerText = `${sport} Goals`;
-            grid.innerHTML = ''; // clear old
+            title.innerText = `${sport}`;
+            grid.innerHTML = ''; 
 
             const goals = sportGoals[sport] || [];
             
             goals.forEach(goal => {
                 const btn = document.createElement('button');
-                btn.className = 'big-btn btn-goal';
+                btn.className = 'big-btn btn-goal purple-theme'; // Defaulting to purple theme for Voley
                 btn.innerHTML = `${goal}`;
                 btn.onclick = () => generateRoutine(goal);
                 grid.appendChild(btn);
@@ -380,37 +462,27 @@
         }
 
         function generateRoutine(goal) {
-            // Filter logic: Must match Sport AND Goal
-            const candidates = exercisesDB.filter(ex => {
-                const matchesSport = ex.sports.includes(currentSport);
-                const matchesGoal = ex.motifs.includes(goal);
-                return matchesSport && matchesGoal;
-            });
-
-            // Fallback: If strict filtering yields 0 results for a category, 
-            // broaden search to just the Goal (ignoring sport specific tag) 
-            // OR just the Sport (generic exercise).
-            
+            // 1. Strict Filter: Match Sport AND Goal AND Type
             const getExercise = (type) => {
-                let pool = candidates.filter(ex => ex.type === type);
-                
-                // Backup Pool 1: Same Goal, Any Sport
-                if(pool.length === 0) {
-                    pool = exercisesDB.filter(ex => ex.type === type && ex.motifs.includes(goal));
-                }
-                
-                // Backup Pool 2: Wildcard
-                if(pool.length === 0) {
-                    return {
-                        name: `${type} Wildcard`,
-                        type: type,
-                        desc: `Do any ${type} exercise suitable for ${currentSport}.`,
-                        img: `https://placehold.co/600x400/eee/999?text=${type}`,
-                        vid: "#"
-                    };
+                // Primary Search: Sport + Goal + Type
+                let candidates = exercisesDB.filter(ex => 
+                    ex.sports.includes(currentSport) && 
+                    ex.motifs.includes(goal) && 
+                    ex.type === type
+                );
+
+                // Safety Net: If no specific exercise for this Goal, 
+                // get ANY exercise for this Sport + Type to prevent blank card.
+                if (candidates.length === 0) {
+                    console.log(`Fallback triggered for ${type}`);
+                    candidates = exercisesDB.filter(ex => 
+                        ex.sports.includes(currentSport) && 
+                        ex.type === type
+                    );
                 }
 
-                return pool[Math.floor(Math.random() * pool.length)];
+                // Random selection from candidates
+                return candidates[Math.floor(Math.random() * candidates.length)];
             };
 
             const heavy = getExercise('Heavy');
@@ -425,7 +497,7 @@
             const container = document.getElementById('workout-container');
             const wrapper = document.getElementById('cards-wrapper');
             
-            document.getElementById('workout-header-label').innerText = `${currentSport}: ${goalTitle}`;
+            document.getElementById('workout-header-label').innerText = `${goalTitle} Session`;
             
             wrapper.innerHTML = '';
 
@@ -435,6 +507,9 @@
                 if(card.type === 'Medium') reps = "2 Sets × 12 Reps";
                 if(card.type === 'Light') reps = "2 Sets × 15 Reps";
 
+                // SVG Play Icon
+                const playIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+
                 wrapper.innerHTML += `
                     <div class="card ${card.type.toLowerCase()}">
                         <div class="card-image">
@@ -443,15 +518,12 @@
                         <div class="card-content">
                             <div class="card-header-group">
                                 <span class="card-tag">${card.type}</span>
-                                <div class="card-reps">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                                    <span>${reps}</span>
-                                </div>
+                                <div class="card-reps">${reps}</div>
                             </div>
                             <h3 class="card-title">${card.name}</h3>
                             <p class="card-desc">${card.desc}</p>
                             <a href="${card.vid}" target="_blank" class="btn-video">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> (Video)
+                                ${playIcon} Watch Video
                             </a>
                         </div>
                     </div>
@@ -460,6 +532,7 @@
 
             container.classList.add('active');
             wrapper.scrollLeft = 0;
+            window.scrollTo(0,0);
         }
 
         function hideAll() {
