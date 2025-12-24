@@ -248,4 +248,78 @@
             { id: 8, name: "Extensión de Rodilla", type: "Light", motifs: ["Knie reha"], desc: "Sentado, extiende la rodilla y aguanta 2 segundos.", img: "https://placehold.co/600x400/66800B/white?text=Knee+Ext" },
             { id: 9, name: "Dead Bug", type: "Light", motifs: ["Core", "Movility"], desc: "Espalda pegada al suelo, estira brazo y pierna contraria.", img: "https://placehold.co/600x400/66800B/white?text=Dead+Bug" },
             { id: 10, name: "Saltos a la comba", type: "Light", motifs: ["Jump", "Angriff"], desc: "Rebotes rápidos y cortos usando pantorrillas.", img: "https://placehold.co/600x400/66800B/white?text=Rope" },
-            { id: 11, name: "World's Greatest Stretch", type: "Light", motifs: ["Movility", "Angriff"], desc: "Zancada profunda con rotación torácica.", img
+            { id: 11, name: "World's Greatest Stretch", type: "Light", motifs: ["Movility", "Angriff"], desc: "Zancada profunda con rotación torácica.", img: "https://placehold.co/600x400/66800B/white?text=Stretch" }
+        ];
+
+        // --- 2. LÓGICA DE LA APP ---
+
+        function getReps(type) {
+            if (type === 'Heavy') return '2 Sets x 8 Reps';
+            if (type === 'Medium') return '2 Sets x 12 Reps';
+            if (type === 'Light') return '2 Sets x 15 Reps';
+            return '2 Sets';
+        }
+
+        function getRandomItem(array) {
+            if (array.length === 0) return null;
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        function generateRoutine(selectedMotif) {
+            // 1. Filtrar ejercicios que coincidan con el motivo
+            const relevantExercises = exercisesDB.filter(ex => ex.motifs.includes(selectedMotif));
+
+            // 2. Separar por categorías
+            const heavies = relevantExercises.filter(ex => ex.type === 'Heavy');
+            const mediums = relevantExercises.filter(ex => ex.type === 'Medium');
+            const lights = relevantExercises.filter(ex => ex.type === 'Light');
+
+            // 3. Seleccionar uno de cada (fallback si no hay ejercicios)
+            const selection = [
+                getRandomItem(heavies) || { name: "Descanso / Comodín Heavy", type: "Heavy", desc: "No hay ejercicio específico, haz uno libre.", img: "https://placehold.co/600x400/eee/999?text=Joker" },
+                getRandomItem(mediums) || { name: "Descanso / Comodín Med", type: "Medium", desc: "No hay ejercicio específico, haz uno libre.", img: "https://placehold.co/600x400/eee/999?text=Joker" },
+                getRandomItem(lights) || { name: "Descanso / Comodín Light", type: "Light", desc: "No hay ejercicio específico, haz uno libre.", img: "https://placehold.co/600x400/eee/999?text=Joker" }
+            ];
+
+            renderCards(selection, selectedMotif);
+        }
+
+        function renderCards(cards, motifTitle) {
+            const container = document.getElementById('cards-wrapper');
+            container.innerHTML = ''; // Limpiar anterior
+
+            document.getElementById('workout-title').innerText = motifTitle;
+
+            cards.forEach(card => {
+                const repsInfo = getReps(card.type);
+                
+                const cardHTML = `
+                    <div class="card ${card.type.toLowerCase()}">
+                        <div class="card-image">
+                            <img src="${card.img}" alt="${card.name}">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag">${card.type}</span>
+                            <h3 class="card-title">${card.name}</h3>
+                            <div class="card-reps">
+                                <span>⚡ ${repsInfo}</span>
+                            </div>
+                            <p class="card-desc">${card.desc}</p>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+
+            // Cambiar vista
+            document.getElementById('menu-container').style.display = 'none';
+            document.getElementById('workout-container').style.display = 'flex';
+        }
+
+        function goBack() {
+            document.getElementById('workout-container').style.display = 'none';
+            document.getElementById('menu-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
