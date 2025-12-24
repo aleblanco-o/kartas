@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrenamiento Flexoki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flexoki Training Deck</title>
     <style>
-        /* --- 1. CONFIGURACIÓN FLEXOKI & BASE --- */
+        /* --- 1. FLEXOKI CONFIGURATION & BASE (Mobile First) --- */
         :root {
-            /* Base */
+            /* Base Colours */
             --flexoki-bg: #FFFCF0;
             --flexoki-ui: #F2F0E5;
             --flexoki-ui-2: #CECDC3;
@@ -23,71 +23,95 @@
             
             /* Cards */
             --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --border-radius: 16px;
         }
 
         body {
             background-color: var(--flexoki-bg);
             color: var(--flexoki-text);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 20px 15px; /* Slightly less side padding on mobile */
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            box-sizing: border-box;
         }
 
-        h1, h2, h3 { margin: 0; font-weight: 700; }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.5px;}
         
-        /* --- 2. PANTALLA DE INICIO (MOTIVOS) --- */
+        /* --- 2. HOME SCREEN (MOTIFS) --- */
         #menu-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 500px; /* Keeps menu compact on large screens */
             text-align: center;
+            margin-top: 20px;
         }
 
         .header-title {
-            margin-bottom: 30px;
-            font-size: 2rem;
+            margin-bottom: 35px;
+            font-size: 2.2rem;
             color: var(--flexoki-text);
         }
 
         .motif-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            /* Mobile first grid: 2 columns by default */
+            grid-template-columns: 1fr 1fr; 
             gap: 15px;
+        }
+
+        /* Make the last item span full width if odd number of items */
+        .motif-grid .motif-btn:last-child:nth-child(odd) {
+            grid-column: span 2;
         }
 
         .motif-btn {
             background-color: var(--flexoki-ui);
             border: 2px solid var(--flexoki-ui-2);
-            border-radius: 12px;
-            padding: 30px 10px;
+            border-radius: var(--border-radius);
+            padding: 25px 10px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.2s ease;
             color: var(--flexoki-text);
+            /* Ensure large touch targets for mobile */
+            min-height: 80px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .motif-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--flexoki-text-mut);
+        .motif-btn:active { transform: scale(0.98); } /* Mobile tap feedback */
+
+        /* Specific colors accents */
+        .motif-btn[data-motif="Knee Rehab"] { border-bottom: 5px solid var(--flexoki-blue); }
+        .motif-btn[data-motif="Jump"] { border-bottom: 5px solid var(--flexoki-red); }
+        .motif-btn[data-motif="Core"] { border-bottom: 5px solid var(--flexoki-orange); }
+        .motif-btn[data-motif="Attack"] { border-bottom: 5px solid var(--flexoki-purple); }
+        .motif-btn[data-motif="Mobility"] { border-bottom: 5px solid var(--flexoki-green); }
+
+        /* Tablet/Desktop adjustments */
+        @media (min-width: 600px) {
+             .motif-grid { grid-template-columns: repeat(3, 1fr); }
+             .motif-grid .motif-btn:last-child:nth-child(odd) { grid-column: auto; }
+             .motif-btn:hover { transform: translateY(-3px); border-color: var(--flexoki-text-mut); }
         }
 
-        /* Colores específicos para motivos (opcional, para variedad) */
-        .motif-btn[data-motif="Knie reha"] { border-bottom: 4px solid var(--flexoki-blue); }
-        .motif-btn[data-motif="Jump"] { border-bottom: 4px solid var(--flexoki-red); }
-        .motif-btn[data-motif="Core"] { border-bottom: 4px solid var(--flexoki-orange); }
-        .motif-btn[data-motif="Angriff"] { border-bottom: 4px solid var(--flexoki-purple); }
-        .motif-btn[data-motif="Movility"] { border-bottom: 4px solid var(--flexoki-green); }
 
-        /* --- 3. PANTALLA DE CARTAS (WORKOUT) --- */
+        /* --- 3. WORKOUT SCREEN (CARDS) --- */
         #workout-container {
-            display: none; /* Oculto por defecto */
+            display: none; /* Hidden by default */
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px; /* Wider container for desktop slider */
             flex-direction: column;
+            flex: 1;
         }
 
         .top-bar {
@@ -95,33 +119,46 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            padding: 0 10px;
+            padding: 0 5px;
         }
+
+        .top-bar h2 { font-size: 1.5rem; }
 
         .back-btn {
             background: none;
             border: none;
             color: var(--flexoki-text-mut);
-            font-size: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
-            text-decoration: underline;
+            padding: 10px; /* Touch target */
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        /* SLIDER HORIZONTAL */
+        /* HORIZONTAL SLIDER - MOBILE OPTIMIZED */
         .cards-slider {
             display: flex;
             overflow-x: auto;
-            gap: 20px;
-            padding: 20px 10px 40px 10px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch; /* Suavidad en iOS */
+            gap: 15px;
+            padding: 10px 5px 30px 5px; /* Bottom padding for scrollbar/shadows */
+            /* Snap scrolling for native feel */
+            scroll-snap-type: x mandatory; 
+            /* Hide scrollbar visually but keep functionality */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
         }
+        .cards-slider::-webkit-scrollbar { display: none; /* WebKit */ }
 
-        /* DISEÑO DE LA CARTA */
+
+        /* CARD DESIGN */
         .card {
-            flex: 0 0 300px; /* Ancho fijo */
+            /* Mobile: Card takes up most of screen width */
+            flex: 0 0 88vw; 
+            max-width: 400px; /* Don't get too huge on tablets */
             background-color: white;
-            border-radius: 16px;
+            border-radius: var(--border-radius);
             overflow: hidden;
             scroll-snap-align: center;
             box-shadow: var(--card-shadow);
@@ -129,10 +166,13 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            height: auto; /* Let content define height */
+            /* Ensure consistent height for alignment */
+            min-height: 500px; 
         }
 
         .card-image {
-            height: 180px;
+            height: 200px;
             background-color: var(--flexoki-ui);
             display: flex;
             align-items: center;
@@ -144,81 +184,123 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.9;
         }
 
         .card-content {
-            padding: 20px;
+            padding: 25px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .card-tag {
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            color: white;
-            align-self: flex-start;
+        .card-header-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        .card-tag {
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            padding: 6px 12px;
+            border-radius: 50px;
+            color: white;
         }
 
         .card-reps {
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 0.9rem;
             color: var(--flexoki-text-mut);
-            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
         }
 
         .card-desc {
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
             color: var(--flexoki-text-mut);
+            margin-bottom: 25px;
+            flex-grow: 1; /* Pushes the button down */
         }
 
-        /* Categorías y Colores */
+        /* VIDEO BUTTON - Minimalist & Matched */
+        .btn-video {
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            background-color: transparent; /* No infill */
+            border: 2px solid currentColor; /* Border matches text color */
+            transition: background-color 0.2s;
+            margin-top: auto; /* Ensures it sticks to bottom */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-video svg { width: 18px; height: 18px; }
+
+        /* Category Styling (Borders & Colors) */
+        /* HEAVY */
+        .heavy { border-top: 8px solid var(--flexoki-red); }
         .heavy .card-tag { background-color: var(--flexoki-red); }
-        .heavy { border-top: 6px solid var(--flexoki-red); }
+        .heavy .btn-video { color: var(--flexoki-red); }
+        .heavy .btn-video:hover, .heavy .btn-video:active { background-color: #AF30291A; /* 10% opacity red */ }
 
+        /* MEDIUM */
+        .medium { border-top: 8px solid var(--flexoki-orange); }
         .medium .card-tag { background-color: var(--flexoki-orange); }
-        .medium { border-top: 6px solid var(--flexoki-orange); }
+        .medium .btn-video { color: var(--flexoki-orange); }
+        .medium .btn-video:hover, .medium .btn-video:active { background-color: #BC52151A; }
 
+        /* LIGHT */
+        .light { border-top: 8px solid var(--flexoki-green); }
         .light .card-tag { background-color: var(--flexoki-green); }
-        .light { border-top: 6px solid var(--flexoki-green); }
+        .light .btn-video { color: var(--flexoki-green); }
+        .light .btn-video:hover, .light .btn-video:active { background-color: #66800B1A; }
 
-        /* Media Queries para móviles */
-        @media (max-width: 600px) {
-            .card { flex: 0 0 85vw; } /* Cartas más anchas en móvil */
+
+        /* Desktop adjustments for slider */
+        @media (min-width: 900px) {
+            .card { flex: 0 0 350px; /* Fixed width on large screens */ }
+            .cards-slider { justify-content: center; /* Center cards if space allows */ }
         }
     </style>
 </head>
 <body>
 
     <div id="menu-container">
-        <h1 class="header-title">Elige tu Objetivo</h1>
+        <h1 class="header-title">Pick Your Goal</h1>
         <div class="motif-grid">
-            <button class="motif-btn" onclick="generateRoutine('Knie reha')" data-motif="Knie reha">Knie Reha</button>
-            <button class="motif-btn" onclick="generateRoutine('Jump')" data-motif="Jump">Jump</button>
-            <button class="motif-btn" onclick="generateRoutine('Core')" data-motif="Core">Core</button>
-            <button class="motif-btn" onclick="generateRoutine('Angriff')" data-motif="Angriff">Angriff</button>
-            <button class="motif-btn" onclick="generateRoutine('Movility')" data-motif="Movility">Movility</button>
+            <div class="motif-btn" onclick="generateRoutine('Knee Rehab')" data-motif="Knee Rehab">Knee Rehab</div>
+            <div class="motif-btn" onclick="generateRoutine('Jump')" data-motif="Jump">Jump</div>
+            <div class="motif-btn" onclick="generateRoutine('Core')" data-motif="Core">Core</div>
+            <div class="motif-btn" onclick="generateRoutine('Attack')" data-motif="Attack">Attack</div>
+            <div class="motif-btn" onclick="generateRoutine('Mobility')" data-motif="Mobility">Mobility</div>
         </div>
     </div>
 
     <div id="workout-container">
         <div class="top-bar">
-            <h2 id="workout-title">Tu Rutina</h2>
-            <button class="back-btn" onclick="goBack()">← Elegir otro</button>
+            <button class="back-btn" onclick="goBack()">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                Choose another
+            </button>
+            <h2 id="workout-title">Routine</h2>
         </div>
         
         <div class="cards-slider" id="cards-wrapper">
@@ -226,37 +308,34 @@
     </div>
 
     <script>
-        // --- 1. BASE DE DATOS (JSON Simulado) ---
-        // Para Heavy: Max 8 Reps
-        // Para Medium: Max 12 Reps
-        // Para Light: Max 15 Reps
-        // Todos son 2 Sets
+        // --- 1. DATABASE (English Translated) ---
+        // Added placeholder 'videoUrl' to each entry. Replace with your real links.
         
         const exercisesDB = [
-            // HEAVY (Fuerza / Potencia)
-            { id: 1, name: "Sentadilla Búlgara", type: "Heavy", motifs: ["Knie reha", "Jump", "Angriff"], desc: "Apoya un pie atrás y baja controlando la rodilla.", img: "https://placehold.co/600x400/AF3029/white?text=Squat" },
-            { id: 2, name: "Salto al Cajón", type: "Heavy", motifs: ["Jump", "Angriff"], desc: "Salto explosivo a una superficie elevada. Aterriza suave.", img: "https://placehold.co/600x400/AF3029/white?text=Box+Jump" },
-            { id: 3, name: "Peso Muerto Rumano", type: "Heavy", motifs: ["Knie reha", "Movility"], desc: "Baja la barra pegada a las piernas manteniendo espalda recta.", img: "https://placehold.co/600x400/AF3029/white?text=RDL" },
-            { id: 4, name: "Dragon Flag", type: "Heavy", motifs: ["Core"], desc: "Eleva todo el cuerpo apoyado solo en hombros.", img: "https://placehold.co/600x400/AF3029/white?text=Dragon+Flag" },
+            // --- HEAVY (Force / Power) ---
+            { id: 1, name: "Bulgarian Split Squat", type: "Heavy", motifs: ["Knee Rehab", "Jump", "Attack"], desc: "Rear foot elevated. Lower hips slowly, controlling knee alignment over toes.", img: "https://placehold.co/600x400/AF3029/white?text=Split+Squat", videoUrl: "https://youtube.com" },
+            { id: 2, name: "Box Jumps", type: "Heavy", motifs: ["Jump", "Attack"], desc: "Explosive jump onto a stable surface. Land softly in a partial squat position.", img: "https://placehold.co/600x400/AF3029/white?text=Box+Jump", videoUrl: "https://youtube.com" },
+            { id: 3, name: "Romanian Deadlift (RDL)", type: "Heavy", motifs: ["Knee Rehab", "Mobility"], desc: "Hinge at hips, keeping back flat and bar close to legs. Feel the hamstring stretch.", img: "https://placehold.co/600x400/AF3029/white?text=RDL", videoUrl: "https://youtube.com" },
+            { id: 4, name: "Dragon Flag", type: "Heavy", motifs: ["Core"], desc: "Advanced core move. Lift entire body while supported only by upper back/shoulders.", img: "https://placehold.co/600x400/AF3029/white?text=Dragon+Flag", videoUrl: "https://youtube.com" },
             
-            // MEDIUM (Hipertrofia / Resistencia media)
-            { id: 5, name: "Lunges Caminando", type: "Medium", motifs: ["Knie reha", "Movility", "Angriff"], desc: "Pasos largos, rodilla trasera cerca del suelo.", img: "https://placehold.co/600x400/BC5215/white?text=Lunges" },
-            { id: 6, name: "Plancha con Rotación", type: "Medium", motifs: ["Core", "Movility"], desc: "Posición de plancha, gira el torso elevando un brazo.", img: "https://placehold.co/600x400/BC5215/white?text=Plank+Rot" },
-            { id: 7, name: "Saltos de Tijera", type: "Medium", motifs: ["Jump", "Angriff"], desc: "Salto alternando piernas en el aire.", img: "https://placehold.co/600x400/BC5215/white?text=Scissor+Jump" },
+            // --- MEDIUM (Hypertrophy / Endurance) ---
+            { id: 5, name: "Walking Lunges", type: "Medium", motifs: ["Knee Rehab", "Mobility", "Attack"], desc: "Take long strides, dropping rear knee just above the floor. Keep torso upright.", img: "https://placehold.co/600x400/BC5215/white?text=Lunges", videoUrl: "https://youtube.com" },
+            { id: 6, name: "Plank Rotation", type: "Medium", motifs: ["Core", "Mobility"], desc: "Start in plank. Rotate torso and lift one arm to the ceiling, following with eyes.", img: "https://placehold.co/600x400/BC5215/white?text=Plank+Rot", videoUrl: "https://youtube.com" },
+            { id: 7, name: "Scissor Jumps", type: "Medium", motifs: ["Jump", "Attack"], desc: "Jump and switch leg positions in mid-air in a lunge stance. Keep it dynamic.", img: "https://placehold.co/600x400/BC5215/white?text=Scissor+Jump", videoUrl: "https://youtube.com" },
             
-            // LIGHT (Movilidad / Estabilidad / Activación)
-            { id: 8, name: "Extensión de Rodilla", type: "Light", motifs: ["Knie reha"], desc: "Sentado, extiende la rodilla y aguanta 2 segundos.", img: "https://placehold.co/600x400/66800B/white?text=Knee+Ext" },
-            { id: 9, name: "Dead Bug", type: "Light", motifs: ["Core", "Movility"], desc: "Espalda pegada al suelo, estira brazo y pierna contraria.", img: "https://placehold.co/600x400/66800B/white?text=Dead+Bug" },
-            { id: 10, name: "Saltos a la comba", type: "Light", motifs: ["Jump", "Angriff"], desc: "Rebotes rápidos y cortos usando pantorrillas.", img: "https://placehold.co/600x400/66800B/white?text=Rope" },
-            { id: 11, name: "World's Greatest Stretch", type: "Light", motifs: ["Movility", "Angriff"], desc: "Zancada profunda con rotación torácica.", img: "https://placehold.co/600x400/66800B/white?text=Stretch" }
+            // --- LIGHT (Mobility / Stability / Activation) ---
+            { id: 8, name: "Terminal Knee Extension", type: "Light", motifs: ["Knee Rehab"], desc: "Seated or standing with band. Fully extend knee and squeeze quad for 2s.", img: "https://placehold.co/600x400/66800B/white?text=Knee+Ext", videoUrl: "https://youtube.com" },
+            { id: 9, name: "Dead Bug", type: "Light", motifs: ["Core", "Mobility"], desc: "Back flat on floor. Slowly extend opposite arm and leg without arching spine.", img: "https://placehold.co/600x400/66800B/white?text=Dead+Bug", videoUrl: "https://youtube.com" },
+            { id: 10, name: "Jump Rope (Pogo)", type: "Light", motifs: ["Jump", "Attack"], desc: "Quick, short bounces using mostly ankles and calves. Stay stiff and reactive.", img: "https://placehold.co/600x400/66800B/white?text=Rope+Pogo", videoUrl: "https://youtube.com" },
+            { id: 11, name: "World's Greatest Stretch", type: "Light", motifs: ["Mobility", "Attack"], desc: "Deep lunge combined with thoracic rotation towards the front leg.", img: "https://placehold.co/600x400/66800B/white?text=World+Stretch", videoUrl: "https://youtube.com" }
         ];
 
-        // --- 2. LÓGICA DE LA APP ---
+        // --- 2. APP LOGIC ---
 
         function getReps(type) {
-            if (type === 'Heavy') return '2 Sets x 8 Reps';
-            if (type === 'Medium') return '2 Sets x 12 Reps';
-            if (type === 'Light') return '2 Sets x 15 Reps';
+            if (type === 'Heavy') return '2 Sets × Max 8 Reps';
+            if (type === 'Medium') return '2 Sets × Max 12 Reps';
+            if (type === 'Light') return '2 Sets × Max 15 Reps';
             return '2 Sets';
         }
 
@@ -266,59 +345,86 @@
         }
 
         function generateRoutine(selectedMotif) {
-            // 1. Filtrar ejercicios que coincidan con el motivo
+            window.scrollTo(0,0); // Reset scroll
+            
+            // 1. Filter exercises relevant to the motif
             const relevantExercises = exercisesDB.filter(ex => ex.motifs.includes(selectedMotif));
 
-            // 2. Separar por categorías
+            // 2. Separate by category
             const heavies = relevantExercises.filter(ex => ex.type === 'Heavy');
             const mediums = relevantExercises.filter(ex => ex.type === 'Medium');
             const lights = relevantExercises.filter(ex => ex.type === 'Light');
 
-            // 3. Seleccionar uno de cada (fallback si no hay ejercicios)
-            const selection = [
-                getRandomItem(heavies) || { name: "Descanso / Comodín Heavy", type: "Heavy", desc: "No hay ejercicio específico, haz uno libre.", img: "https://placehold.co/600x400/eee/999?text=Joker" },
-                getRandomItem(mediums) || { name: "Descanso / Comodín Med", type: "Medium", desc: "No hay ejercicio específico, haz uno libre.", img: "https://placehold.co/600x400/eee/999?text=Joker" },
-                getRandomItem(lights) || { name: "Descanso / Comodín Light", type: "Light", desc: "No hay ejercicio específico, haz uno libre.", img: "https://placehold.co/600x400/eee/999?text=Joker" }
-            ];
+            // 3. Joker/Fallback card if a category is empty for that motif
+            const jokerCard = (type) => ({ 
+                name: `${type} Wildcard`, 
+                type: type, 
+                desc: "No specific exercise found for this goal. Choose any exercise of this intensity.", 
+                img: `https://placehold.co/600x400/EAEAEA/999?text=${type}+Wildcard`,
+                videoUrl: "#" 
+            });
 
-            renderCards(selection, selectedMotif);
+            // 4. Select one of each & FORCE SORT ORDER (Heavy -> Medium -> Light)
+            const selectedHeavy = getRandomItem(heavies) || jokerCard("Heavy");
+            const selectedMedium = getRandomItem(mediums) || jokerCard("Medium");
+            const selectedLight = getRandomItem(lights) || jokerCard("Light");
+
+            // The order in this array dictates the display order
+            const finalSelection = [selectedHeavy, selectedMedium, selectedLight];
+
+            renderCards(finalSelection, selectedMotif);
         }
 
         function renderCards(cards, motifTitle) {
             const container = document.getElementById('cards-wrapper');
-            container.innerHTML = ''; // Limpiar anterior
+            container.innerHTML = ''; // Clear previous elements
 
             document.getElementById('workout-title').innerText = motifTitle;
 
             cards.forEach(card => {
                 const repsInfo = getReps(card.type);
+                const typeClass = card.type.toLowerCase();
                 
+                // SVG Icon for video button
+                const playIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+
                 const cardHTML = `
-                    <div class="card ${card.type.toLowerCase()}">
+                    <div class="card ${typeClass}">
                         <div class="card-image">
-                            <img src="${card.img}" alt="${card.name}">
+                            <img src="${card.img}" alt="${card.name}" loading="lazy">
                         </div>
                         <div class="card-content">
-                            <span class="card-tag">${card.type}</span>
-                            <h3 class="card-title">${card.name}</h3>
-                            <div class="card-reps">
-                                <span>⚡ ${repsInfo}</span>
+                            <div class="card-header-group">
+                                <span class="card-tag">${card.type}</span>
+                                <div class="card-reps">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                                    <span>${repsInfo}</span>
+                                </div>
                             </div>
+                            <h3 class="card-title">${card.name}</h3>
                             <p class="card-desc">${card.desc}</p>
+                            
+                            <a href="${card.videoUrl}" target="_blank" class="btn-video">
+                                ${playIcon} (Video)
+                            </a>
                         </div>
                     </div>
                 `;
                 container.innerHTML += cardHTML;
             });
 
-            // Cambiar vista
+            // Switch Views
             document.getElementById('menu-container').style.display = 'none';
             document.getElementById('workout-container').style.display = 'flex';
+            
+            // Force scroll to start of slider on mobile
+            container.scrollLeft = 0;
         }
 
         function goBack() {
             document.getElementById('workout-container').style.display = 'none';
             document.getElementById('menu-container').style.display = 'block';
+             window.scrollTo(0,0);
         }
     </script>
 </body>
