@@ -400,47 +400,325 @@
             // ==========================================
             // HEAVY (Force / Max Strength / High Load)
             // ==========================================
-            { id: 1, name: "Back Squat", type: "Heavy", sports: ["Volleyball"], motifs: ["Jump", "Spike"], desc: "Deep squat with controlled tempo. Focus on glute and quad drive for raw vertical power.", img: "https://placehold.co/600x400/AF3029/white?text=Back+Squat", vid: "#" },
-            { id: 2, name: "Trap Bar Deadlift", type: "Heavy", sports: ["Volleyball"], motifs: ["Jump", "Mobility"], desc: "Hinge pattern. Safer on the lower back than conventional DL. Keep chest tall.", img: "https://placehold.co/600x400/AF3029/white?text=Trap+Bar", vid: "#" },
-            { id: 3, name: "ATG Split Squat", type: "Heavy", sports: ["Volleyball", "Running"], motifs: ["Knee Rehab", "Mobility"], desc: "Full range motion. Hamstring covers calf. Bulletproofs the knee through full flexion.", img: "https://placehold.co/600x400/AF3029/white?text=ATG+Split+Squat", vid: "#" },
-            { id: 4, name: "Weighted Pull-Up", type: "Heavy", sports: ["Volleyball", "Swimming"], motifs: ["Spike", "Mobility"], desc: "Strict form. Lats are crucial for hitting power and swimming propulsion.", img: "https://placehold.co/600x400/AF3029/white?text=Pull+Up", vid: "#" },
-            { id: 5, name: "RDL (Romanian Deadlift)", type: "Heavy", sports: ["Volleyball", "Running"], motifs: ["Knee Rehab", "Mobility", "Jump"], desc: "Hamstring and glute focus. Protects the ACL by strengthening the posterior chain.", img: "https://placehold.co/600x400/AF3029/white?text=RDL", vid: "#" },
-            { id: 16, name: "Hip Thrust", type: "Heavy", sports: ["Volleyball", "Running"], motifs: ["Jump", "Beginning"], desc: "Pure glute isolation. Drive hips up explosively, hold at the top for 1s.", img: "https://placehold.co/600x400/AF3029/white?text=Hip+Thrust", vid: "#" },
-            { id: 17, name: "Landmine Press", type: "Heavy", sports: ["Volleyball", "Swimming"], motifs: ["Spike", "Core"], desc: "Overhead pushing mechanics that are safer for the shoulder. Engage core against rotation.", img: "https://placehold.co/600x400/AF3029/white?text=Landmine+Press", vid: "#" },
-            { id: 18, name: "Poliquin Step Up", type: "Heavy", sports: ["Volleyball", "Running"], motifs: ["Knee Rehab"], desc: "Elevated heel step up. Focus on driving knee forward over toe to target VMO.", img: "https://placehold.co/600x400/AF3029/white?text=Poliquin+Step+Up", vid: "#" },
-            { id: 19, name: "Jefferson Curl", type: "Heavy", sports: ["Volleyball", "Running"], motifs: ["Mobility", "Core"], desc: "Weighted mobility. Round the back slowly vertebrae by vertebrae. Lengthens posterior chain.", img: "https://placehold.co/600x400/AF3029/white?text=Jefferson+Curl", vid: "#" },
-            { id: 20, name: "Single Arm Dumbbell Row", type: "Heavy", sports: ["Volleyball", "Swimming"], motifs: ["Spike", "Core", "Technical"], desc: "Heavy row to build back thickness and anti-rotation core strength.", img: "https://placehold.co/600x400/AF3029/white?text=DB+Row", vid: "#" },
+            { 
+                id: 1, 
+                name: "Back Squat", 
+                type: "Heavy", 
+                sports: ["Volleyball"], 
+                motifs: ["Jump", "Spike"], 
+                desc: "Keep chest up and brace core. Descend until hips are below knees, maintaining a neutral spine, then drive up explosively. *The king of exercises for building raw vertical power and ground reaction force.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=Back+Squat", 
+                vid: "#" 
+            },
+            { 
+                id: 2, 
+                name: "Trap Bar Deadlift", 
+                type: "Heavy", 
+                sports: ["Volleyball"], 
+                motifs: ["Jump", "Mobility"], 
+                desc: "Hinge at the hips with a slight knee bend. Drive feet through the floor and stand tall without leaning back. *Allows for maximal force production with less shear force on the spine than a conventional deadlift.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=Trap+Bar", 
+                vid: "#" 
+            },
+            { 
+                id: 3, 
+                name: "ATG Split Squat", 
+                type: "Heavy", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Knee Rehab", "Mobility"], 
+                desc: "Drive front knee forward until hamstring covers the calf, keeping rear leg straight and active. *Strengthens the knee through full flexion, essentially bulletproofing the joint against injury.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=ATG+Split+Squat", 
+                vid: "#" 
+            },
+            { 
+                id: 4, 
+                name: "Weighted Pull-Up", 
+                type: "Heavy", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Spike", "Mobility"], 
+                desc: "Full dead hang at bottom, chin clearly over bar at top. Control the descent. *Lats are the primary engine for arm swing velocity in hitting and propulsion in swimming.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=Pull+Up", 
+                vid: "#" 
+            },
+            { 
+                id: 5, 
+                name: "RDL (Romanian Deadlift)", 
+                type: "Heavy", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Knee Rehab", "Mobility", "Jump"], 
+                desc: "Push hips back while keeping shins vertical and weight close to legs. Stop when hamstrings are fully stretched. *Crucial for building the posterior chain 'armor' that protects the ACL.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=RDL", 
+                vid: "#" 
+            },
+            { 
+                id: 16, 
+                name: "Hip Thrust", 
+                type: "Heavy", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Jump", "Beginning"], 
+                desc: "Pivot on bench at shoulder blades. Tuck chin and drive hips up to full extension, squeezing glutes hard. *Isolates the glutes for horizontal force production and sprint speed.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=Hip+Thrust", 
+                vid: "#" 
+            },
+            { 
+                id: 17, 
+                name: "Landmine Press", 
+                type: "Heavy", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Spike", "Core"], 
+                desc: "Lean slightly forward. Press the bar up and forward without arching your lower back. *Permits overhead power training while keeping the shoulder in a safer, more natural position.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=Landmine+Press", 
+                vid: "#" 
+            },
+            { 
+                id: 18, 
+                name: "Poliquin Step Up", 
+                type: "Heavy", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Knee Rehab"], 
+                desc: "Use a slant board or elevated heel. Step up controlled, driving the knee far over the toe. *Targeted isolation of the VMO (teardrop muscle) to stabilize the patella.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=Poliquin+Step+Up", 
+                vid: "#" 
+            },
+            { 
+                id: 19, 
+                name: "Jefferson Curl", 
+                type: "Heavy", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Mobility", "Core"], 
+                desc: "Stand on a box. Tuck chin and round spine down one vertebrae at a time, keeping legs straight. *Builds resilience in the spine and dramatically lengthens the posterior chain under load.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=Jefferson+Curl", 
+                vid: "#" 
+            },
+            { 
+                id: 20, 
+                name: "Single Arm DB Row", 
+                type: "Heavy", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Spike", "Core", "Technical"], 
+                desc: "Support on bench with flat back. Drive elbow toward hip, resisting torso rotation. *Develops back thickness and anti-rotational core strength essential for hitting mechanics.*", 
+                img: "https://placehold.co/600x400/AF3029/white?text=DB+Row", 
+                vid: "#" 
+            },
 
             // ==========================================
             // MEDIUM (Hypertrophy / Power / Accessories)
             // ==========================================
-            { id: 6, name: "Box Jumps", type: "Medium", sports: ["Volleyball"], motifs: ["Jump", "Spike"], desc: "Focus on soft landing and full hip extension in the air. Do not just tuck knees.", img: "https://placehold.co/600x400/BC5215/white?text=Box+Jump", vid: "#" },
-            { id: 7, name: "Medicine Ball Slam", type: "Medium", sports: ["Volleyball", "Swimming"], motifs: ["Spike", "Core"], desc: "Violent slam downward. Use whole body to generate force, simulating a spike.", img: "https://placehold.co/600x400/BC5215/white?text=Ball+Slam", vid: "#" },
-            { id: 8, name: "Walking Lunges", type: "Medium", sports: ["Volleyball", "Running"], motifs: ["Mobility", "Beginning"], desc: "Unilateral stability. Keep torso upright and control the descent.", img: "https://placehold.co/600x400/BC5215/white?text=Lunges", vid: "#" },
-            { id: 9, name: "Nordic Hamstring Curl", type: "Medium", sports: ["Volleyball", "Running"], motifs: ["Knee Rehab", "Jump"], desc: "Eccentric overload. Lower yourself as slowly as possible. Use hands to push up.", img: "https://placehold.co/600x400/BC5215/white?text=Nordic+Curl", vid: "#" },
-            { id: 10, name: "Kettlebell Swings", type: "Medium", sports: ["Volleyball", "Running"], motifs: ["Jump", "Core"], desc: "Explosive hip hinge. The power comes from the glutes, not the arms.", img: "https://placehold.co/600x400/BC5215/white?text=KB+Swing", vid: "#" },
-            { id: 21, name: "Face Pulls", type: "Medium", sports: ["Volleyball", "Swimming"], motifs: ["Spike", "Mobility"], desc: "Rotator cuff health. Pull rope to forehead, keeping elbows high and external rotation.", img: "https://placehold.co/600x400/BC5215/white?text=Face+Pull", vid: "#" },
-            { id: 22, name: "Cossack Squat", type: "Medium", sports: ["Volleyball"], motifs: ["Mobility", "Knee Rehab"], desc: "Side-to-side squat. massive adductor and ankle mobility gains.", img: "https://placehold.co/600x400/BC5215/white?text=Cossack+Squat", vid: "#" },
-            { id: 23, name: "Rotational Med Ball Throw", type: "Medium", sports: ["Volleyball"], motifs: ["Spike", "Core"], desc: "Stand sideways to wall. Throw ball hard using hip rotation. Power generation.", img: "https://placehold.co/600x400/BC5215/white?text=Rotational+Throw", vid: "#" },
-            { id: 24, name: "Single Leg Box Jump", type: "Medium", sports: ["Volleyball", "Running"], motifs: ["Jump", "Stability"], desc: "Advanced plyometric. Jump off one leg, land on two. Unilateral power.", img: "https://placehold.co/600x400/BC5215/white?text=SL+Box+Jump", vid: "#" },
-            { id: 25, name: "Pallof Press", type: "Medium", sports: ["Volleyball", "Swimming"], motifs: ["Core", "Stability"], desc: "Anti-rotation hold. Press cable/band out and hold. Resists twisting forces.", img: "https://placehold.co/600x400/BC5215/white?text=Pallof+Press", vid: "#" },
+            { 
+                id: 6, 
+                name: "Box Jumps", 
+                type: "Medium", 
+                sports: ["Volleyball"], 
+                motifs: ["Jump", "Spike"], 
+                desc: "Explode up and land softly on the box. Stand tall to finish. Step down, do not jump down. *Teaches the body to recruit max muscle fibers instantly for explosive height.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=Box+Jump", 
+                vid: "#" 
+            },
+            { 
+                id: 7, 
+                name: "Medicine Ball Slam", 
+                type: "Medium", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Spike", "Core"], 
+                desc: "Reach high on toes, then violently slam the ball down using abs and lats. Catch the bounce. *Trains the core-to-extremity transfer of energy required for a heavy spike.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=Ball+Slam", 
+                vid: "#" 
+            },
+            { 
+                id: 8, 
+                name: "Walking Lunges", 
+                type: "Medium", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Mobility", "Beginning"], 
+                desc: "Take long strides. Rear knee should hover an inch off the floor. Keep torso upright. *Develops dynamic single-leg stability and hip flexor length while moving.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=Lunges", 
+                vid: "#" 
+            },
+            { 
+                id: 9, 
+                name: "Nordic Hamstring Curl", 
+                type: "Medium", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Knee Rehab", "Jump"], 
+                desc: "Anchor ankles. Lower torso as slowly as possible keeping hips extended. Push back up with hands. *The #1 evidence-based exercise for preventing hamstring strains and injury.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=Nordic+Curl", 
+                vid: "#" 
+            },
+            { 
+                id: 10, 
+                name: "Kettlebell Swings", 
+                type: "Medium", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Jump", "Core"], 
+                desc: "Hike the bell back, then snap hips forward aggressively. Arms act as ropes; power comes from glutes. *Trains the posterior chain to fire rapidly, improving vertical jump speed.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=KB+Swing", 
+                vid: "#" 
+            },
+            { 
+                id: 21, 
+                name: "Face Pulls", 
+                type: "Medium", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Spike", "Mobility"], 
+                desc: "Pull rope to forehead, driving elbows back and externally rotating hands. Squeeze rear delts. *Vital for shoulder health to counteract the forward-rounded posture of hitting.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=Face+Pull", 
+                vid: "#" 
+            },
+            { 
+                id: 22, 
+                name: "Cossack Squat", 
+                type: "Medium", 
+                sports: ["Volleyball"], 
+                motifs: ["Mobility", "Knee Rehab"], 
+                desc: "Descend to one side, keeping that heel flat. The other leg stays straight with toes up. *Unlocks hip mobility and bulletproofs the adductors (groin) for lateral movements.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=Cossack+Squat", 
+                vid: "#" 
+            },
+            { 
+                id: 23, 
+                name: "Rotational Med Ball Throw", 
+                type: "Medium", 
+                sports: ["Volleyball"], 
+                motifs: ["Spike", "Core"], 
+                desc: "Stand perpendicular to wall. Generate power from back foot and hips, whipping the ball into wall. *Teaches how to separate hip and shoulder rotation for maximum torque.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=Rotational+Throw", 
+                vid: "#" 
+            },
+            { 
+                id: 24, 
+                name: "Single Leg Box Jump", 
+                type: "Medium", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Jump", "Stability"], 
+                desc: "Drive off one leg, land on two legs softly. Focus on the drive phase. *Corrects power imbalances between legs and improves unilateral explosiveness.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=SL+Box+Jump", 
+                vid: "#" 
+            },
+            { 
+                id: 25, 
+                name: "Pallof Press", 
+                type: "Medium", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Core", "Stability"], 
+                desc: "Athletic stance. Press cable/band straight out and hold for 3s resisting the twist. *Builds anti-rotation stability, protecting the lower back during high-force swings.*", 
+                img: "https://placehold.co/600x400/BC5215/white?text=Pallof+Press", 
+                vid: "#" 
+            },
 
             // ==========================================
             // LIGHT (Activation / Stability / Rehab)
             // ==========================================
-            { id: 11, name: "Pogo Jumps", type: "Light", sports: ["Volleyball", "Running"], motifs: ["Jump", "Spike"], desc: "Ankle stiffness. Rapid rebounds mainly using calves. Keep knees slightly soft but stiff.", img: "https://placehold.co/600x400/66800B/white?text=Pogo+Jumps", vid: "#" },
-            { id: 12, name: "Spanish Squat (Iso)", type: "Light", sports: ["Volleyball"], motifs: ["Knee Rehab"], desc: "Isometric hold with heavy band behind knees. 45 seconds holds for tendon pain relief.", img: "https://placehold.co/600x400/66800B/white?text=Spanish+Squat", vid: "#" },
-            { id: 13, name: "Band Pull Aparts", type: "Light", sports: ["Volleyball", "Swimming"], motifs: ["Spike", "Mobility", "Technical"], desc: "Scapular retraction volume. Keep elbows locked straight and squeeze shoulder blades.", img: "https://placehold.co/600x400/66800B/white?text=Band+Pull", vid: "#" },
-            { id: 14, name: "Copenhagen Plank", type: "Light", sports: ["Volleyball", "Running"], motifs: ["Knee Rehab", "Mobility"], desc: "Adductor focus. Top leg on bench, bottom leg lifts. Critical for knee stability.", img: "https://placehold.co/600x400/66800B/white?text=Copenhagen", vid: "#" },
-            { id: 15, name: "90/90 Hip Switch", type: "Light", sports: ["Volleyball", "Running"], motifs: ["Mobility", "Knee Rehab"], desc: "Internal and external hip rotation flow on floor. Unlocks tight hips.", img: "https://placehold.co/600x400/66800B/white?text=90-90+Hip", vid: "#" },
-            { id: 26, name: "Tibialis Raise", type: "Light", sports: ["Volleyball", "Running"], motifs: ["Knee Rehab", "Jump"], desc: "Lean against wall, lift toes. Strengthens the front of the shin to absorb landing force.", img: "https://placehold.co/600x400/66800B/white?text=Tib+Raise", vid: "#" },
-            { id: 27, name: "Depth Drops", type: "Light", sports: ["Volleyball"], motifs: ["Jump", "Knee Rehab"], desc: "Step off box, land in athletic position and stick the landing. Focus on absorption.", img: "https://placehold.co/600x400/66800B/white?text=Depth+Drops", vid: "#" },
-            { id: 28, name: "Lu Raises", type: "Light", sports: ["Volleyball", "Swimming"], motifs: ["Spike", "Mobility"], desc: "Lateral raise that continues all the way overhead. Great for shoulder range of motion.", img: "https://placehold.co/600x400/66800B/white?text=Lu+Raises", vid: "#" },
-            { id: 29, name: "Dead Hang", type: "Light", sports: ["Volleyball", "Swimming"], motifs: ["Mobility", "Spike"], desc: "Hang from bar, relax shoulders. Decompresses the spine and opens overhead mobility.", img: "https://placehold.co/600x400/66800B/white?text=Dead+Hang", vid: "#" },
-            { id: 30, name: "Y-T-W Raises", type: "Light", sports: ["Volleyball"], motifs: ["Spike", "Mobility"], desc: "Prone position (lying down). Lift arms in Y, T and W shapes. Lower trap activation.", img: "https://placehold.co/600x400/66800B/white?text=Y-T-W", vid: "#" },
-            { id: 31, name: "Patrick Step", type: "Light", sports: ["Volleyball"], motifs: ["Knee Rehab"], desc: "Small step down, heel touch, back up. First step in VMO strengthening.", img: "https://placehold.co/600x400/66800B/white?text=Patrick+Step", vid: "#" }
+            { 
+                id: 11, 
+                name: "Pogo Jumps", 
+                type: "Light", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Jump", "Spike"], 
+                desc: "Keep knees slightly bent but stiff. Bounce using only ankles, minimizing ground contact time. *Increases tendon stiffness and elasticity for reactive jumping ability.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Pogo+Jumps", 
+                vid: "#" 
+            },
+            { 
+                id: 12, 
+                name: "Spanish Squat (Iso)", 
+                type: "Light", 
+                sports: ["Volleyball"], 
+                motifs: ["Knee Rehab"], 
+                desc: "Band behind knees, attached to heavy post. Sit back (shins vertical) and hold for 45s. *Provides an analgesic effect for patellar tendon pain (Jumper's Knee).*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Spanish+Squat", 
+                vid: "#" 
+            },
+            { 
+                id: 13, 
+                name: "Band Pull Aparts", 
+                type: "Light", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Spike", "Mobility", "Technical"], 
+                desc: "Palms up. Pull band apart until it touches chest, squeezing shoulder blades together. Do not flare ribs. *Builds the scapular stability foundation needed for safe overhead hitting.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Band+Pull", 
+                vid: "#" 
+            },
+            { 
+                id: 14, 
+                name: "Copenhagen Plank", 
+                type: "Light", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Knee Rehab", "Mobility"], 
+                desc: "Side plank with top leg on bench/chair. Lift hips until body is straight. Hold. *Strengthens the adductors (groin), which is critical for knee stability and lateral cuts.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Copenhagen", 
+                vid: "#" 
+            },
+            { 
+                id: 15, 
+                name: "90/90 Hip Switch", 
+                type: "Light", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Mobility", "Knee Rehab"], 
+                desc: "Sit on floor, legs at 90 degrees. Rotate knees side to side while keeping torso tall. *Active mobility work to unlock the hip capsule and improve squat depth.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=90-90+Hip", 
+                vid: "#" 
+            },
+            { 
+                id: 26, 
+                name: "Tibialis Raise", 
+                type: "Light", 
+                sports: ["Volleyball", "Running"], 
+                motifs: ["Knee Rehab", "Jump"], 
+                desc: "Lean butt against wall, legs straight. Lift toes towards shins as high as possible. *Strengthens the front of the shin to absorb landing forces and prevent shin splints.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Tib+Raise", 
+                vid: "#" 
+            },
+            { 
+                id: 27, 
+                name: "Depth Drops", 
+                type: "Light", 
+                sports: ["Volleyball"], 
+                motifs: ["Jump", "Knee Rehab"], 
+                desc: "Step off a low box. Land softly in an athletic stance and 'stick' the landing without wobbling. *Teaches the nervous system how to absorb force efficiently before generating it.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Depth+Drops", 
+                vid: "#" 
+            },
+            { 
+                id: 28, 
+                name: "Lu Raises", 
+                type: "Light", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Spike", "Mobility"], 
+                desc: "Lateral raise that continues until plates touch overhead. Control the descent. *Takes the shoulder through full range of motion under load for bulletproof cuffs.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Lu+Raises", 
+                vid: "#" 
+            },
+            { 
+                id: 29, 
+                name: "Dead Hang", 
+                type: "Light", 
+                sports: ["Volleyball", "Swimming"], 
+                motifs: ["Mobility", "Spike"], 
+                desc: "Hang from bar passively. Relax shoulders up to ears. Deep belly breaths. *Decompresses the spine and opens up tight shoulders after a heavy hitting session.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Dead+Hang", 
+                vid: "#" 
+            },
+            { 
+                id: 30, 
+                name: "Y-T-W Raises", 
+                type: "Light", 
+                sports: ["Volleyball"], 
+                motifs: ["Spike", "Mobility"], 
+                desc: "Lie chest down. Lift arms in Y, T, and W shapes, leading with thumbs. Squeeze lower traps. *Targets the often neglected lower trapezius for better posture and shoulder mechanics.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Y-T-W", 
+                vid: "#" 
+            },
+            { 
+                id: 31, 
+                name: "Patrick Step", 
+                type: "Light", 
+                sports: ["Volleyball"], 
+                motifs: ["Knee Rehab"], 
+                desc: "Stand on one leg. Extend other leg forward and tap heel, bending standing knee over toe. *The entry point for knee ability. Strengthens the knee joint in a safe, scalable range.*", 
+                img: "https://placehold.co/600x400/66800B/white?text=Patrick+Step", 
+                vid: "#" 
+            }
         ];
-
         // --- 3. LOGIC ---
 
         function showSportMenu() {
